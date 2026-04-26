@@ -6,8 +6,3 @@ Simulador simples de cadastro para blog usando **JavaScript** para consolidar co
 * Conversão para `Number`
 * Laço de repetição `for`
 * Condicionais `if/else`
-
-### 🛠️ Como usar:
-1. Abra o `index.html` no navegador.
-2. Informe a quantidade de categorias.
-3. Digite os nomes e acompanhe o log no **Console (F12)**.
