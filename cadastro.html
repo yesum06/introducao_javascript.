@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Cadastro de Usuário</h2>
+    <input type="text" id="nome" placeholder="Digite seu nome:">
+    <input type="email" id="email" placeholder="Digite seu email:">
+    <button id = "btn-salvar"> Gravar Dados.</button>
+
+    <br><br>
+    <a href = "lista.html"> Ver Lista de Usuários Registrados. </a>
+</body>
+    <script>
+        const btnSalvar = document.getElementById('btn-salvar');
+
+        btnSalvar.addEventListener('click', function() {
+            const inputNome = document.getElementById('nome').value;
+            const inputEmail = document.getElementById('email').value;
+
+            //1- cria o objeto js
+            const novoUsuario = { nome: inputNome, email: inputEmail };
+
+            //2- le o que existe no armazém (ou cria umalista vazia)
+            let lista = JSON.parse(localStorage.getItem('bancoUsuarios')) || [];
+
+            //3- adiciona o novo usuário à lista
+            lista.push(novoUsuario);
+
+            //4- transforma a lista em texto JSON e salva
+            localStorage.setItem('bancoUsuarios', JSON.stringify(lista));
+
+            alert('Usuário cadastrado com sucesso!');
+
+            //5- limpa os campos para o proximo cadastro
+            document.getElementById('nome').value = '';
+            document.getElementById('email').value = '';
+
+
+        });
+    </script>
+</html>

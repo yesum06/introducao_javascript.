@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Usuários</title>
+</head>
+<body>
+    <h2>Lista de Usuários Registrados</h2>
+    <ul id="lista-usuarios"> <br>
+    </ul>
+    <a href="cadastro.html"> Voltar para Cadastro. </a>
+</body>
+    <script>
+        function CarregarDados() {
+            const ul = document.getElementById('lista-usuarios');
+
+            //1- ler os dados convertendo para  volta para aarray
+            let lista = JSON.parse(localStorage.getItem('bancoUsuarios')) || [];
+
+            ul.innerHTML = ''; // Limpa a lista antes de adicionar os itens
+
+            //2- varremos a lista e criamos os itens (com o botao de excluir)
+            lista.forEach(function(usuario, index) {
+                ul.innerHTML += `
+                <li>
+                    <strong> ${usuario.nome}</strong> - ${usuario.email} 
+                    <button onclick="ExcluirUsuario(${index})" style = "background-color: red; color: white; cursor: pointer;"> Excluir </button>
+                    <button onclick="EditarUsuario(${index})" style = "background-color: blue; color: white; cursor: pointer;"> Editar </button>
+                </li>
+                `;
+                
+            })
+        }
+
+        // Função para excluir um usuário da lista
+        function ExcluirUsuario(index) {
+            if (confirm('Tem certeza que deseja excluir este usuário?')) {
+                let lista = JSON.parse(localStorage.getItem('bancoUsuarios'));
+
+                // o slice remove um item 
+                lista.splice(index, 1);
+
+                //salva a nova lista e recarrega a lista
+                localStorage.setItem('bancoUsuarios', JSON.stringify(lista));
+                CarregarDados();
+            }
+       }
+
+       //função para editar um usuário da lista
+       function EditarUsuario(index) {
+        if (confirm('Tem certeza que deseja editar este usuário?')) {
+            let lista = JSON.parse(localStorage.getItem('bancoUsuarios'));
+
+            const novoNome = prompt('Digite o novo nome:', lista[index].nome);
+            const novoEmail = prompt('Digite o novo email:', lista[index].email);
+
+            lista[index].nome = novoNome;
+            lista[index].email = novoEmail;
+
+            localStorage.setItem('bancoUsuarios', JSON.stringify(lista));
+
+         }
+       
+    }
+         
+           
+        
+
+        
+       //chama a funcao para rodar assim que a pg abre
+         CarregarDados();
+    </script>
+</html>
